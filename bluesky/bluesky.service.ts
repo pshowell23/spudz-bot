@@ -22,7 +22,6 @@ export class SpudzBotBlueskyService {
     
     async goodMorning() {
         try {
-
             await agent.post({
                 text: 'Good morning friends!'
             });
