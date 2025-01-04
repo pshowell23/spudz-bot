@@ -1,24 +1,15 @@
-import { AtpAgent } from 'npm:@atproto/api';
-import dotenv from 'npm:dotenv';
 import { CronJob } from 'npm:cron';
-import process from 'npm:process';
+import { SpudzBotBlueskyService } from "./bluesky/bluesky.service.ts";
 
-dotenv.config();
-
-const agent = new AtpAgent({
-  service: 'https://bsky.social'
-})
+const BSKY = new SpudzBotBlueskyService()
 
 async function main() {
-  await agent.login({ identifier: process.env.BLUESKY_USERNAME, password: process.env.BLUESKY_PASSWORD });
-  await agent.post({
-    text: 'This is simply a test that Spudzbot is behaving as expected.'
-  })
-  console.log('Posted to Bsky.social')
+  await BSKY.login();
+  await BSKY.goodMorning();
 }
 
 main();
 
-const job = new CronJob('0 7 * * *', main);
+// const job = new CronJob('0 7 * * *', main);
 
-job.start();
+// job.start();
